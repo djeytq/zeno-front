@@ -23,7 +23,10 @@ export default function Home() {
     <div className="mt-10 mx-auto md:w-250">
       <div className="header flex justify-between px-4">
         <h1 className="text-xl">Total de cadastros: <strong>{data.length}</strong></h1>
+        <div className="btns flex gap-3">
+        <Button title={"Refresh"} cor="bg-green-700" onClick={()=> fecthData()} />
         <Button title={"Novo cadastro"} cor="bg-blue-500" onClick={()=>{setOverlay(true); setShowRegister(true)}} />
+        </div>
       </div>
       <div className="flex flex-col gap-5 mx-auto justify-center p-4 pt-10 overflow-auto">
         {
