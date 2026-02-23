@@ -1,10 +1,10 @@
 
-export default function Dashboard(){
+export default function Contacts(){
 
     return(
         <div>
             <h1>
-                dashboard
+                sobre mim
             </h1>
         </div>
     )

@@ -48,15 +48,15 @@ export function ModalDelete({ id, finish }) {
 }
 
 export function ModalEditeOrRegister({ data, finish, update = true }) {
-    const [first_name, setFirst_name] = useState(data.first_name || '');
-    const [last_name, setLast_name] = useState(data.last_name || '');
-    const [email, setEmail] = useState(data.email || '');
-    const [phone, setPhone] = useState(data.phone || '');
-    const [description, setDescription] = useState(data.description || '');
+    const [first_name, setFirst_name] = useState(data?.first_name || '');
+    const [last_name, setLast_name] = useState(data?.last_name || '');
+    const [email, setEmail] = useState(data?.email || '');
+    const [phone, setPhone] = useState(data?.phone || '');
+    const [description, setDescription] = useState(data?.description || '');
 
     async function submit() {
         //path dinamico para tornar possivel com que o modal sirva tanto para update e register
-        const path = update ? `/cadastro/update/${data.id}` : '/cadastro/register' 
+        const path = update ? `/cadastro/update/${data?.id}` : '/cadastro/register' 
         try {
             const response = await fetch(URL_BASE + path,
                 {
@@ -71,7 +71,7 @@ export function ModalEditeOrRegister({ data, finish, update = true }) {
             const data = await response.json();
             console.log(data)
 
-            finish && finish() //fechar o modal - se estiver nulll, false, ou undefined ... nao executa
+            finish() //fechar o modal 
         } catch (err) {
             console.log(err)
         }
