@@ -1,11 +1,18 @@
+'use client'
 import { Linha_cadastro } from "@/components/Linha_cadastro"
+import { useState, useEffect } from "react";
 
-export default async function Home() {
+export default function Home() {
+  const [data, setData] = useState([])
+  async function fecthData() {
+    const response = await fetch('http://localhost:3001/cadastro/show');
+     const data_json = await response.json();
+     setData(data_json)
 
-  const response = await fetch('http://localhost:3001/cadastro/show');
-  const data = await response.json();
-
-  console.log(data)
+  }
+  useEffect(()=>{
+    fecthData()
+  }, [])
 
   return (
     <div className="mt-10 mx-auto md:w-250">
@@ -14,7 +21,7 @@ export default async function Home() {
         {
           data.map((c, idx) => {
             return (
-              <Linha_cadastro data={c} key={idx} />
+              <Linha_cadastro data={c} key={idx} fetch={fecthData} />
             )
           })
         }

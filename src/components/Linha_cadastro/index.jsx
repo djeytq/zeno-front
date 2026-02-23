@@ -1,19 +1,63 @@
+'use client'
+import { useState } from "react";
+import { ModalDetails, ModalDelete, ModalEditeOrRegister } from "../Modal";
 
-export function Linha_cadastro({data}) {
+export function Linha_cadastro({ data, fetch }) {
+    const [showDetail, setShowDetail] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+    const [showEdite, setShowEdite] = useState(false)
+    const [overlay, setOverlay] = useState(false)
 
     return (
-        <div className="card min-w-50 bg-blue-300 p-5 rounded-2xl">
+        <div className="card min-w-50 bg-gray-200 p-5 rounded-2xl relative">
             <div className="content gap-3 flex justify-between items-center">
                 <div className="inf">
-                    <p><strong>Nome:</strong> {data.first_name + ' '+ data.last_name}</p>
-                    <p><strong>Email:</strong> {data.phone}</p>
+                    <p><strong>Nome:</strong> {data.first_name + ' ' + data.last_name}</p>
+                    <p><strong>Telefone:</strong> {data.phone}</p>
                 </div>
                 <div className="actions flex gap-3">
-                    <span className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg bg-green-200">ver</span>
-                    <span className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg bg-green-200">apgar</span>
-                    <span className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg bg-green-200">editar</span>
+                    <button onClick={() => { setOverlay(true); setShowDetail(true) }} className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg cursor-pointer bg-blue-800">
+                        ver
+                    </button>
+                    <button onClick={() => { setOverlay(true); setShowDelete(true) }} className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg cursor-pointer bg-red-500">
+                        apagar
+                    </button>
+                    <button onClick={() => { setOverlay(true); setShowEdite(true) }} className="py-1 px-4 rounded-lg hover:brightness-75 text-white font-medium text-lg cursor-pointer bg-green-700">
+                        editar
+                    </button>
                 </div>
             </div>
-        </div>
+
+            {overlay && //overlay com os modais
+                <>
+                    {/* ver datalhes*/}
+                    {showDetail && (
+                        <div className="fixed gap-3 inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm">
+                            <button onClick={() => { setOverlay(false); setShowDetail(false) }} className="mt-4 bg-blue-600 font-bold text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-all"
+                            > Fechar </button>
+                            <ModalDetails data={data} />
+                        </div>
+                    )}
+
+                    {/* apagr cadastro*/}
+                    {showDelete && (
+                        <div className="fixed gap-3 inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm">
+                            <button onClick={() => { setOverlay(false); setShowDelete(false) }} className="mt-4 bg-blue-600 font-bold text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-all"
+                            > Fechar </button>
+                            <ModalDelete id={data.id} fetch={fetch} finish={() => { { setOverlay(false); setShowDetail(false) } }} />
+                        </div>
+                    )}
+
+                    {/* editar cadastro*/}
+                    {showEdite && (
+                        <div className="fixed gap-3 inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm">
+                            <button onClick={() => { setOverlay(false); setShowEdite(false) }} className="mt-4 bg-blue-600 font-bold text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-all"
+                            > Fechar </button>
+                            <ModalEditeOrRegister data={data} fetch={fetch} finish={() => { { setOverlay(false); setShowDetail(false) } }} />
+                        </div>
+                    )}
+                </>
+            }
+        </div >
     )
 }
