@@ -50,7 +50,7 @@ src/
  |       |__header/index.jsx
  |       |__;inha_Cadastro/inex.jsx
  |       |__Modal/index.jsx
- └── service/apis
+ └── service/url.js
 
  ## Roadmap
 
