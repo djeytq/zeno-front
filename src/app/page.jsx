@@ -3,6 +3,7 @@ import { Linha_cadastro } from "@/components/Linha_cadastro";
 import { ModalEditeOrRegister } from "@/components/Modal";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/Button";
+import { URL_BASE } from "@/service/url";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ export default function Home() {
   const [overlay, setOverlay] = useState(false);
 
   async function fecthData() {
-    const response = await fetch('http://localhost:3001/cadastro/show');
+    const response = await fetch(URL_BASE + '/cadastro/show');
     const data_json = await response.json();
     setData(data_json)
 
